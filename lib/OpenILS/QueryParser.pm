@@ -1,10 +1,10 @@
 use strict;
 use warnings;
 
-package QueryParser;
-use OpenSRF::Utils::JSON;
+package OpenILS::QueryParser;
+use JSON;
 our %parser_config = (
-    QueryParser => {
+    'OpenILS::QueryParser' => {
         filters => [],
         modifiers => [],
         operators => {
@@ -198,7 +198,7 @@ sub add_query_normalizer {
     # do not add if function AND params are identical to existing member
     return $func if (grep {
         $_->{function} eq $func and
-        OpenSRF::Utils::JSON->perl2JSON($_->{params}) eq OpenSRF::Utils::JSON->perl2JSON($params)
+        JSON->to_json($_->{params}) eq JSON->to_json($params)
     } @{$pkg->query_normalizers->{$class}->{$field}});
 
     push(@{$pkg->query_normalizers->{$class}->{$field}}, { function => $func, params => $params });
@@ -800,7 +800,7 @@ sub superpage_size {
 
 
 #-------------------------------
-package QueryParser::_util;
+package OpenILS::QueryParser::_util;
 
 # At this level, joiners are always & or |.  This is not
 # the external, configurable representation of joiners that
@@ -858,7 +858,7 @@ sub find_arrays_in_abstract {
 }
 
 #-------------------------------
-package QueryParser::Canonicalize;  # not OO
+package OpenILS::QueryParser::Canonicalize;  # not OO
 
 sub _abstract_query2str_filter {
     my $f = shift;
@@ -950,7 +950,7 @@ sub abstract_query2str_impl {
 }
 
 #-------------------------------
-package QueryParser::query_plan;
+package OpenILS::QueryParser::query_plan;
 
 sub QueryParser {
     my $self = shift;
@@ -1264,7 +1264,7 @@ sub to_abstract_query {
 
 
 #-------------------------------
-package QueryParser::query_plan::node;
+package OpenILS::QueryParser::query_plan::node;
 use Data::Dumper;
 $Data::Dumper::Indent = 0;
 
@@ -1566,7 +1566,7 @@ sub to_abstract_query {
 }
 
 #-------------------------------
-package QueryParser::query_plan::node::atom;
+package OpenILS::QueryParser::query_plan::node::atom;
 
 sub new {
     my $pkg = shift;
@@ -1609,7 +1609,7 @@ sub to_abstract_query {
     };
 }
 #-------------------------------
-package QueryParser::query_plan::filter;
+package OpenILS::QueryParser::query_plan::filter;
 
 sub new {
     my $pkg = shift;
@@ -1648,7 +1648,7 @@ sub to_abstract_query {
 }
 
 #-------------------------------
-package QueryParser::query_plan::facet;
+package OpenILS::QueryParser::query_plan::facet;
 
 sub new {
     my $pkg = shift;
@@ -1688,7 +1688,7 @@ sub to_abstract_query {
 }
 
 #-------------------------------
-package QueryParser::query_plan::modifier;
+package OpenILS::QueryParser::query_plan::modifier;
 
 sub new {
     my $pkg = shift;
