@@ -3,6 +3,9 @@ use warnings;
 
 package OpenILS::QueryParser;
 use JSON;
+
+our $VERSION = '0.01';
+
 our %parser_config = (
     'OpenILS::QueryParser' => {
         filters => [],
