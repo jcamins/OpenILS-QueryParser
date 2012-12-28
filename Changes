@@ -1,0 +1,6 @@
+Revision history for Perl extension OpenILS::QueryParser.
+
+0.01  Thu Dec 20 21:24:26 2012
+	- original version; created by h2xs 1.23 with options
+		-XA -n OpenILS::QueryParser
+
